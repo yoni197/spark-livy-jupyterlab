@@ -1,4 +1,4 @@
-version: "3"
+version: '2'
 
 services:
   spark:
@@ -36,18 +36,25 @@ services:
       - SPARK_SSL_ENABLED=no
   livy:
     image: slj/livy
-    build:
-      context: .
-      dockerfile: Dockerfile.livy
-    hostname: spark
-    ports:
-      - "8998:8998"
-    depends_on:
+    container_name: livy
+    links:
       - spark
       - spark-worker-1
       - spark-worker-2
+    build:
+      context: .
+      dockerfile: Dockerfile.livy
+    ports:
+      - "8998:8998"
+    volumes:
+      - $PWD/jars:/opt/jars
+    depends_on:
+      - "spark"
+      - "spark-worker-1"
+      - "spark-worker-2"
   jupyter:
     image: slj/sparkmagic
+    container_name: sparkmagic
     build:
       context: .
       dockerfile: Dockerfile.sparkmagic
@@ -56,6 +63,8 @@ services:
     ports:
       - "8888:8888"
     depends_on:
+      - "livy"
+    links:
       - livy
     environment:
       - JUPYTER_ENABLE_LAB=1
