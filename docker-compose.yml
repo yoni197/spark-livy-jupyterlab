@@ -68,3 +68,5 @@ services:
       - livy
     environment:
       - JUPYTER_ENABLE_LAB=1
+      - JUPYTER_TOKEN=easy
+      - PASSWORD=password

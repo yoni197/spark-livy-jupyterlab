@@ -13,8 +13,10 @@
     docker-compose build
     ```
 
-* Step 3: Visit `localhost:8998` in your browser and make sure the Livy Server is running
-
+* Step 3:
+    * Visit `locahost:8080` in your browser and make sur spark cluster is running  
+    * Visit `localhost:8998` in your browser and make sure the Livy Server is running
+    * Visit `localhost:8888/?token=easy` in your browser and make sure jupyter lab is running
 ## About
 
 * The Java SE 1.8 JDK
